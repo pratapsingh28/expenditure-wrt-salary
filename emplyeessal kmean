@@ -1,0 +1,67 @@
+K mean clustering on employee data of there salary wrt there exenditure
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sbs
+import  numpy as np
+
+df=pd.read_csv("dm.csv")
+df.head()
+
+df=df.drop(["Age","Gender","OwnHome","Location","Children","History","Catalogs","Cust_Id","Married"],axis=1)
+
+df.head()
+
+
+
+df.head()
+
+df=df.head(30)
+
+df.shape
+
+df.head()
+
+plt.figure(figsize=(10,7))
+
+plt.scatter(df.AmountSpent,df.Salary)
+
+
+
+df.head()
+
+df.describe()
+
+df.mean()
+
+from sklearn.cluster import  KMeans
+
+individual clustering score==ics
+
+ics=[]
+
+for i in range (1,5):
+    
+    kmeans=KMeans(n_clusters=i,init="random",random_state=23)
+    kmeans.fit(df)
+    ics.append(kmeans.inertia_)
+
+plt.plot(range(1,5),ics)
+
+KMeans().get_params()
+
+kmeans=KMeans(n_clusters=2,random_state=23)
+kmeans.fit(df)
+
+pred=kmeans.predict(df)
+
+pred[0:10]
+
+df["Output"]=pd.DataFrame(pred)
+
+df.head()
+
+sbs.lmplot(x="Salary",y="AmountSpent",hue="Output",data=df,fit_reg=False)
+
+
+
